@@ -10,7 +10,7 @@ var roomsPerBuilding = 24;
 function ColorRoom() {
     var roomID = document.forms["colorForm"]["roomNo"].value;
     var hexCode = document.forms["colorForm"]["colorCode"].value;
-    console.log("roomID"+roomID);
+    // console.log("roomID"+roomID);
     RoomColor(roomID,hexCode);
 }
 
@@ -67,10 +67,10 @@ function tableAdd() {
 
 function tableGenerate() {
     tableContainer = "";
-    console.log("Generate Start");
-    console.log(tableContainer);
+    // console.log("Generate Start");
+    // console.log(tableContainer);
     for (let i = 0; i < buildingCount; i++) {
-        console.log("Loop");
+        // console.log("Loop");
         tableContainer += `<div class="col-6 px-5 py-5">
         <table class="table table-bordered align-middle text-center">
             <tr>
@@ -108,5 +108,22 @@ function tableGenerate() {
         </table>
     </div>`
         document.getElementById('table-container').innerHTML = tableContainer;
+    }
+}
+tableAdd()
+function stepBatch(){
+    var rooms=BatchWise(100,2020)
+    for(var i=0;i<rooms.length;i++){
+        var curr=rooms[i]
+        if(curr.batch!=null){
+            if(curr.gender=="M"){
+                RoomColor(curr.roomNo,"ADD8E6")
+    
+            }
+            else{
+    
+                RoomColor(curr.roomNo,"FFC0CB")
+            }
+        }
     }
 }
