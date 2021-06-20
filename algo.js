@@ -5,11 +5,12 @@ var maleStudents=[]
 var femaleStudents=[]
 var student_clg_dist={}
 // generate buildins
+var currBatchlist=[]
 count=100
 var buildings=[]
 for(var i=0;i<4;i++){
     var rooms=[]
-    for(var j=0;j<25;j++){
+    for(var j=0;j<24;j++){
        
         rooms.push({
             roomNo:String(++count),
@@ -187,7 +188,7 @@ for(j=0;j<currBuild.rooms.length;j++){
     }
 }
 }
-console.log(maleStudents.length,femaleStudents.length)
+// console.log(maleStudents.length,femaleStudents.length,currBatch)
 students=[]
 maleStudents=[]
 femaleStudents=[]
@@ -202,6 +203,26 @@ for(j=0;j<currBuild.rooms.length;j++){
     temp.push(currRoom)
 }
 }
+currBatchlist.push(currBatch)
+if(currBatchlist.length==4){
+    var removeBatch=currBatchlist[0]
+currBatchlist.shift();
+for(var i=0;i<buildings.length;i++){
+    var currBuild=buildings[i]
+for(j=0;j<currBuild.rooms.length;j++){
+   var currRoom=currBuild.rooms[j]
+   if(currRoom.batch==removeBatch){
+       
+
+    currRoom.gender=null,
+    currRoom.current=0,
+    currRoom.batch=null
+    
+   }
+}
+}
+}
+// console.log(temp)
 return temp
 }
 // noOfStudents,batch

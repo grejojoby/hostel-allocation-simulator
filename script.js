@@ -14,8 +14,9 @@ function ColorRoom() {
     RoomColor(roomID,hexCode);
 }
 
-function RoomColor(rID,cID) {
+function RoomColor(rID,cID,batch) {
     document.getElementById(rID.toString()).style.backgroundColor = `#${cID}`;
+    document.getElementById(rID.toString()).textContent=String(batch)
 }
 
 function tableAdd() {
@@ -111,18 +112,29 @@ function tableGenerate() {
     }
 }
 tableAdd()
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+  }
+var GlobalBatch=2020
 function stepBatch(){
-    var rooms=BatchWise(100,2020)
+    GlobalBatch+=1;
+    var rooms=BatchWise(getRandomIntInclusive(88,100),GlobalBatch)
     for(var i=0;i<rooms.length;i++){
         var curr=rooms[i]
         if(curr.batch!=null){
             if(curr.gender=="M"){
-                RoomColor(curr.roomNo,"ADD8E6")
+                RoomColor(curr.roomNo,"ADD8E6",curr.batch+"("+String(curr.current)+")")
     
             }
-            else{
+            else if(curr.gender=="F"){
     
-                RoomColor(curr.roomNo,"FFC0CB")
+                RoomColor(curr.roomNo,"FFC0CB",curr.batch+"("+String(curr.current)+")")
+            }
+            else{
+                RoomColor(curr.roomNo,"ffff","NA")
+
             }
         }
     }
