@@ -121,6 +121,7 @@ var GlobalBatch=2020
 function stepBatch(){
     GlobalBatch+=1;
     var rooms=BatchWise(getRandomIntInclusive(88,100),GlobalBatch)
+    
     for(var i=0;i<rooms.length;i++){
         var curr=rooms[i]
         if(curr.batch!=null){

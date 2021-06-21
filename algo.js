@@ -178,6 +178,11 @@ for(var i=0;i<buildings.length;i++){
     }
  
 }
+if((femaleStudents.length+maleStudents.length)<students.length){
+    
+    alert("not all allocated")
+}
+console.log((femaleStudents.length+maleStudents.length),students.length)
 
 for(var i=0;i<buildings.length;i++){
     var currBuild=buildings[i]
@@ -188,7 +193,7 @@ for(j=0;j<currBuild.rooms.length;j++){
     }
 }
 }
-// console.log(maleStudents.length,femaleStudents.length,currBatch)
+console.log(maleStudents.length,femaleStudents.length,currBatch)
 students=[]
 maleStudents=[]
 femaleStudents=[]
@@ -223,7 +228,7 @@ for(j=0;j<currBuild.rooms.length;j++){
 }
 }
 // console.log(temp)
-return temp
+return temp;
 }
 // noOfStudents,batch
 // BatchWise(6,2020)
