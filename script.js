@@ -117,6 +117,8 @@ function getRandomIntInclusive(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
   }
+var pinkList=["FCEAEB","F4C9D5","E68AAE","E06A9B"]
+var blueList=["ABBCEA","92B4E3","7BA4DD","628DD6"]
 var GlobalBatch=2020
 function stepBatch(){
     GlobalBatch+=1;
@@ -126,12 +128,12 @@ function stepBatch(){
         var curr=rooms[i]
         if(curr.batch!=null){
             if(curr.gender=="M"){
-                RoomColor(curr.roomNo,"ADD8E6",curr.batch+"("+String(curr.current)+")")
+                RoomColor(curr.roomNo,blueList[curr.current-1],curr.batch+"("+String(curr.current)+")")
     
             }
             else if(curr.gender=="F"){
-    
-                RoomColor(curr.roomNo,"FFC0CB",curr.batch+"("+String(curr.current)+")")
+                
+                RoomColor(curr.roomNo,pinkList[curr.current-1],curr.batch+"("+String(curr.current)+")")
             }
             else{
                 RoomColor(curr.roomNo,"ffff","NA")
