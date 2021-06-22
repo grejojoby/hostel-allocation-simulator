@@ -15,21 +15,52 @@
 </head>
 
 <body>
-    <div>
-
-    </div>
-    <div class="container">
-        <div class="row">
-            <button class="btn btn-primary" onclick="stepBatch();">Generate</button>
-
-            <form name="colorForm" id="colorFormID" onsubmit="ColorRoom();">
-                <input type="number" name="roomNo" id="roomNo">
-                <input type="text" name="colorCode" id="colorCode">
-                <input type="submit" value="Color" class="btn btn-warning">
-                <div id="totalStudents">123</div>
-            </form>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container">
+          <h4>HOSTELOMATIC </h4>
         </div>
-    </div>
+      </nav>
+ 
+
+    <div class="card-group ml-5 mr-5">
+        <div class="card m-2">
+          
+          <div class="card-body">
+            <h5 class="card-title">Step By Step</h5>
+            <p class="card-text">Use this if you want to iterate step by step.Every Step will be performed once.It is important
+                to note that removing a batch is also counted as a step
+            </p>
+             <button class="btn btn-primary" onclick="stepBatch();">Step By Step</button>
+           
+          </div>
+        </div>
+        <div class="card m-2">
+          
+          <div class="card-body">
+            <h5 class="card-title">Automatic</h5>
+            <p class="card-text">Use this if you want it to automatically perform operations. <br>
+                The start button will start the operations , stop will stop and the sliders can <br>
+            used to adjust the speed</p>
+            <input type="submit" value="Start" class="btn btn-secondary" onclick="start();">
+            <input type="submit" value="Stop" class="btn btn-warning" onclick="stop();">
+            <div>
+
+                <label for="vol">Speed (between 10ms to 5sec per iteration):</label>
+                <input type="range" id="vol" name="vol" min="10" max="5000">
+            </div>
+          </div>
+        </div>
+        <div class="card m-2">
+          
+            <div class="card-body">
+              <h5 class="card-title">Step Values</h5>
+              <p class="card-text">Logging of the events is done here</p>
+              <h5 id="notes">2020 Batch enters the hostel</h5>
+              <h5 id="totalStudents">Total students = 0</h5>
+            </div>
+          </div>
+
+      </div>
     <div class="container-fluid">
         <div class="row" id="table-container">
             <!-- <div class="col-6 px-5 py-5">

@@ -231,6 +231,8 @@ return temp;
 
 function RemovePrevBatch(currBatch){
     var removeBatch=currBatchlist[0]
+    document.getElementById("notes").innerHTML=String(removeBatch)+" Batch leaves the hostel"
+
     console.log(removeBatch)
     currBatchlist.shift();
     for(var i=0;i<buildings.length;i++){

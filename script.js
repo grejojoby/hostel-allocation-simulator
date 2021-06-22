@@ -85,15 +85,17 @@ var blueList=["ABBCEA","92B4E3","7BA4DD","628DD6"]
 var GlobalBatch=2020
 var tcurrBatch=0
 var removeBatchFlag=true
+var started=false;
 function stepBatch(){
     if(tcurrBatch>=4 && removeBatchFlag){
-        console.log("Afd")
+        console.log("remove")
+
        var rooms= RemovePrevBatch(GlobalBatch)
        removeBatchFlag=false
     }
     else{
-
-        var rooms=BatchWise(getRandomIntInclusive(80,90),GlobalBatch)
+        document.getElementById("notes").innerHTML=String(GlobalBatch)+" Batch enters the hostel"
+        var rooms=BatchWise(getRandomIntInclusive(20,90),GlobalBatch)
         removeBatchFlag=true
         GlobalBatch+=1
         tcurrBatch+=1
@@ -119,7 +121,18 @@ function stepBatch(){
 
         }
     }
-    document.getElementById("totalStudents").innerHTML=TotalStudent
+
+    document.getElementById("totalStudents").innerHTML="Total students = "+String(TotalStudent)
+    if(started){
+        setTimeout(stepBatch,document.getElementById("vol").value)
+    }
+}
+
+function start(){
+    started=true
+    stepBatch()
+}
+function stop(){
+    started=false
 
 }
-setInterval(stepBatch,1)
