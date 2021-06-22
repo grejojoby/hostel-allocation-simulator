@@ -16,7 +16,14 @@ function ColorRoom() {
 
 function RoomColor(rID,cID,batch) {
     document.getElementById(rID.toString()).style.backgroundColor = `#${cID}`;
-    document.getElementById(rID.toString()).textContent=String(batch)
+    if(batch!=null){
+
+        document.getElementById(rID.toString()).textContent=String(batch)
+    }
+    else{
+        document.getElementById(rID.toString()).textContent=rID
+
+    }
 }
 
 function tableAdd() {
@@ -66,51 +73,7 @@ function tableAdd() {
     }
 }
 
-function tableGenerate() {
-    tableContainer = "";
-    // console.log("Generate Start");
-    // console.log(tableContainer);
-    for (let i = 0; i < buildingCount; i++) {
-        // console.log("Loop");
-        tableContainer += `<div class="col-6 px-5 py-5">
-        <table class="table table-bordered align-middle text-center">
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
-    </div>`
-        document.getElementById('table-container').innerHTML = tableContainer;
-    }
-}
+
 tableAdd()
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
@@ -120,10 +83,23 @@ function getRandomIntInclusive(min, max) {
 var pinkList=["FCEAEB","F4C9D5","E68AAE","E06A9B"]
 var blueList=["ABBCEA","92B4E3","7BA4DD","628DD6"]
 var GlobalBatch=2020
+var tcurrBatch=0
+var removeBatchFlag=true
 function stepBatch(){
-    GlobalBatch+=1;
-    var rooms=BatchWise(getRandomIntInclusive(88,100),GlobalBatch)
-    
+    if(tcurrBatch>=4 && removeBatchFlag){
+        console.log("Afd")
+       var rooms= RemovePrevBatch(GlobalBatch)
+       removeBatchFlag=false
+    }
+    else{
+
+        var rooms=BatchWise(getRandomIntInclusive(80,90),GlobalBatch)
+        removeBatchFlag=true
+        GlobalBatch+=1
+        tcurrBatch+=1
+    }
+
+
     for(var i=0;i<rooms.length;i++){
         var curr=rooms[i]
         if(curr.batch!=null){
@@ -135,10 +111,15 @@ function stepBatch(){
                 
                 RoomColor(curr.roomNo,pinkList[curr.current-1],curr.batch+"("+String(curr.current)+")")
             }
-            else{
-                RoomColor(curr.roomNo,"ffff","NA")
+            
+        }
+        else{
+            // console.log(curr.roomNo,"ffff",null)
+            RoomColor(curr.roomNo,"ffff",null)
 
-            }
         }
     }
+    document.getElementById("totalStudents").innerHTML=TotalStudent
+
 }
+setInterval(stepBatch,1)

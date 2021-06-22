@@ -3,9 +3,11 @@ var rooms=[]
 var students=[]
 var maleStudents=[]
 var femaleStudents=[]
+var TotalStudent=0
 var student_clg_dist={}
 // generate buildins
 var currBatchlist=[]
+
 count=100
 var buildings=[]
 for(var i=0;i<4;i++){
@@ -77,6 +79,7 @@ function GenderCllgSort(a, b) {
 
 
 function BatchWise(noOfStudents,currBatch){
+    console.log("Incoming batch",currBatchlist)
     // generate students
     for(var i=0;i<noOfStudents;i++){
         temp={
@@ -85,8 +88,11 @@ function BatchWise(noOfStudents,currBatch){
             batch:currBatch
         }
         students.push(temp)
+        
 
     }
+    TotalStudent+=students.length
+
     //update student clg distribution
     var temp=""
     for(var i=0;i<students.length;i++){
@@ -126,6 +132,7 @@ function BatchWise(noOfStudents,currBatch){
     }
     
     // allocating male students
+    var assingedStudents=0;
     var maleIndex=0;
     for(var i=0;i<buildings.length;i++){
         var currentBuilding=buildings[i]
@@ -142,6 +149,7 @@ function BatchWise(noOfStudents,currBatch){
                 while((currRoom.allowed>currRoom.current ) && (maleIndex<maleStudents.length) ){
                     currRoom.current+=1
                     maleIndex+=1
+                    assingedStudents+=1
                     
                 }
 
@@ -169,6 +177,7 @@ for(var i=0;i<buildings.length;i++){
             while((currRoom.allowed>currRoom.current ) && (femaleIndex<femaleStudents.length) ){
                 currRoom.current+=1
                 femaleIndex+=1
+                assingedStudents+=1
                 
             }
 
@@ -178,11 +187,13 @@ for(var i=0;i<buildings.length;i++){
     }
  
 }
-if((femaleStudents.length+maleStudents.length)<students.length){
+console.log(assingedStudents,students.length,currBatch);
+
+if(assingedStudents!=students.length){
     
     alert("not all allocated")
 }
-console.log((femaleStudents.length+maleStudents.length),students.length)
+// console.log((femaleStudents.length+maleStudents.length),students.length)
 
 for(var i=0;i<buildings.length;i++){
     var currBuild=buildings[i]
@@ -193,7 +204,7 @@ for(j=0;j<currBuild.rooms.length;j++){
     }
 }
 }
-console.log(maleStudents.length,femaleStudents.length,currBatch)
+// console.log(maleStudents.length,femaleStudents.length,currBatch)
 students=[]
 maleStudents=[]
 femaleStudents=[]
@@ -209,24 +220,7 @@ for(j=0;j<currBuild.rooms.length;j++){
 }
 }
 currBatchlist.push(currBatch)
-if(currBatchlist.length==4){
-    var removeBatch=currBatchlist[0]
-currBatchlist.shift();
-for(var i=0;i<buildings.length;i++){
-    var currBuild=buildings[i]
-for(j=0;j<currBuild.rooms.length;j++){
-   var currRoom=currBuild.rooms[j]
-   if(currRoom.batch==removeBatch){
-       
 
-    currRoom.gender=null,
-    currRoom.current=0,
-    currRoom.batch=null
-    
-   }
-}
-}
-}
 // console.log(temp)
 return temp;
 }
@@ -234,3 +228,37 @@ return temp;
 // BatchWise(6,2020)
 // BatchWise(6,2021)
 // BatchWise(6,2022)
+
+function RemovePrevBatch(currBatch){
+    var removeBatch=currBatchlist[0]
+    console.log(removeBatch)
+    currBatchlist.shift();
+    for(var i=0;i<buildings.length;i++){
+        var currBuild=buildings[i]
+    for(j=0;j<currBuild.rooms.length;j++){
+       var currRoom=currBuild.rooms[j]
+       if(currRoom.batch==removeBatch){
+        TotalStudent-=currRoom.current
+    
+        currRoom.gender=null,
+        currRoom.current=0,
+        currRoom.batch=null
+        
+       }
+    }
+    }
+
+    temp=[]
+
+    for(var i=0;i<buildings.length;i++){
+        var currBuild=buildings[i]
+    for(j=0;j<currBuild.rooms.length;j++){
+        var currRoom=currBuild.rooms[j]
+        temp.push(currRoom)
+    }
+    }
+   
+    
+    // console.log(temp)
+    return temp;
+}
